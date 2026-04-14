@@ -30,7 +30,7 @@ Associated manuscript:
 - Loads a feature table and a label file without assuming any private filesystem paths
 - Builds binary labels from either a patient list or an explicit label column
 - Trains multiple baseline machine learning models with 5-fold stratified cross-validation
-- Uses Bayesian hyperparameter search on fold 1 and reuses the selected settings on later folds
+- Uses Bayesian hyperparameter search
 - Evaluates baseline, undersampling, and oversampling strategies
 - Saves fold-level metrics, summary metrics, fitted models, and best hyperparameters
 - Generates SHAP summary plots and ranked feature-importance outputs for trained models
@@ -41,7 +41,7 @@ The repository does not include patient-level data.
 
 Expected inputs:
 
-1. A feature CSV containing one row per patient and an identifier column such as `deid_pat_id`
+1. A feature CSV containing one row per patient and an identifier column such as `pat_id`
 2. A label CSV containing either:
    - a patient identifier column listing positive cases, or
    - a patient identifier column plus an explicit binary label column
@@ -67,7 +67,7 @@ python scripts/train_models.py \
   --features-csv data/features.csv \
   --labels-csv data/labels.csv \
   --output-dir outputs/training_run \
-  --id-column deid_pat_id \
+  --id-column pat_id \
   --bayes-iterations 100 \
   --scale-note-features
 ```
@@ -92,7 +92,7 @@ python scripts/generate_shap.py \
   --features-csv data/features.csv \
   --labels-csv data/labels.csv \
   --output-dir outputs/shap_xgboost \
-  --id-column deid_pat_id \
+  --id-column pat_id \
   --top-k 15 \
   --max-samples 1000
 ```
